@@ -1,8 +1,8 @@
 # lein-cascade
 
 A Leiningen plugin to execute cascading task dependencies. This is vaguely
-similar to [Makefiles]<http://en.wikipedia.org/wiki/Make_(software)> and
-[Ant](http://ant.apache.org/) target dependencies.
+similar to <a href="http://en.wikipedia.org/wiki/Make_(software)">Makefiles</a>
+and [Ant](http://ant.apache.org/) target dependencies.
 
 ## Installation
 
