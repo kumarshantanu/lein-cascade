@@ -21,13 +21,14 @@ Put `[lein-cascade "0.1.0"]` into the `:plugins` vector of your project.clj.
 Add a `:cascade` key in your `project.clj` - example below:
 
 ```clojure
+;; Inner vectors contain task name and args if any, non-vector is a dependency
 :cascade {"foo"  [["clean"]]
-          "bar"  ["foo"
+          "bar"  ["foo"      ; triggers "foo"
                   ["javac"]]
-          "baz"  ["bar"
+          "baz"  ["bar"      ; triggers "bar"
                   ["test"]]
-          "quux" ["bar"
-                  ["doc"] ; codox plugin example
+          "quux" ["bar"      ; triggers "bar"
+                  ["doc"]    ; codox plugin example
                   ["uberjar"]]}
 ```
 
