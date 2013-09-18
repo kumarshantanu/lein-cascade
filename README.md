@@ -6,15 +6,15 @@ and [Ant](http://ant.apache.org/) target dependencies.
 
 ## Installation
 
+You must have Leiningen 2.0 or higher to use this plugin.
+
 Use this for user-level plugins:
 
-Put `[lein-cascade "0.1.0"]` into the `:plugins` vector of your
-`:user` profile, or if you are on Leiningen 1.x do `lein plugin install
-lein-cascade 0.1.0`.
+Put `[lein-cascade "0.1.1"]` into the `:plugins` vector of your `:user` profile.
 
 Use this for project-level plugins:
 
-Put `[lein-cascade "0.1.0"]` into the `:plugins` vector of your project.clj.
+Put `[lein-cascade "0.1.1"]` into the `:plugins` vector of your project.clj.
 
 ## Usage
 
