@@ -4,6 +4,11 @@
             [leiningen.core.main :as main]))
 
 
+(defn echo
+  [& args]
+  (apply println    "[lein-cascade] ......." args))
+
+
 (defn abort
   [& msgs]
   (apply main/abort "[lein-cascade] [ERROR]" msgs))
@@ -13,6 +18,7 @@
   [tasks project]
   (doseq [[task-name & args] tasks]
     (let [resolved-task-name (main/lookup-alias task-name project)]
+      (apply echo "Executing: lein" resolved-task-name args)
       (main/apply-task resolved-task-name project args))))
 
 
@@ -24,20 +30,24 @@
 
 
 (defn resolve-val
-  "Resolve symbol %* as command-line arg, symbol as env-var and rest unchanged"
+  "Resolve symbol %, %integer and %& as command-line args, symbol as env-var
+  and keeps everything else unchanged."
   [args token]
   (if-not (symbol? token)
-    token
+    [token]
     (let [token-str (name token)
           [c1 & more] token-str]
       (if-not (= c1 \%)
-        (or (System/getenv token-str)
-            (abort "No such environment variable:" token-str))
-        (let [anum (Integer/parseInt (str/join (or (seq more) ["1"])))]
-          (if-not (or (< anum 1) (> anum (count args)))
-            (nth args (dec anum))
-            (abort "Cannot resolve argument" token "- args="
-                   (pr-str args))))))))
+        (if-let [v (System/getenv token-str)]
+          [v]
+          (abort "No such environment variable:" token-str))
+        (if (= token-str "%&")
+          args
+          (let [anum (Integer/parseInt (str/join (or (seq more) ["1"])))]
+            (if-not (or (< anum 1) (> anum (count args)))
+              [(nth args (dec anum))]
+              (abort "Cannot resolve argument" token "- args="
+                     (pr-str args)))))))))
 
 
 (declare resolve-tasks)
@@ -48,7 +58,7 @@
   (cond
     (vector? each-val) (if (seq each-val)
                          (-> (partial resolve-val args)
-                             (map each-val)
+                             (mapcat each-val)
                              vector)
                          (abort "Inner task-vector must not be empty:"
                                 (pr-str each-val)))
@@ -59,7 +69,7 @@
 
 (defn resolve-tasks
   [cmap visited ckey args]
-  (println "[lein-cascade] Executing" (pr-str ckey))
+  (echo "Looking up" (pr-str ckey))
   (if (contains? cmap ckey)
     (let [cvals (get cmap ckey)]
       (if (vector? cvals)
