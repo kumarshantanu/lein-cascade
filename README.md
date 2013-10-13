@@ -10,11 +10,11 @@ You must have Leiningen 2.0 or higher to use this plugin.
 
 Use this for user-level plugins:
 
-Put `[lein-cascade "0.1.1"]` into the `:plugins` vector of your `:user` profile.
+Put `[lein-cascade "0.1.2"]` into the `:plugins` vector of your `:user` profile.
 
 Use this for project-level plugins:
 
-Put `[lein-cascade "0.1.1"]` into the `:plugins` vector of your project.clj.
+Put `[lein-cascade "0.1.2"]` into the `:plugins` vector of your project.clj.
 
 ## Usage
 
