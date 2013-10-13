@@ -1,4 +1,4 @@
-(defproject lein-cascade "0.1.1"
+(defproject lein-cascade "0.1.2"
   :description "A Leiningen plugin to execute cascading task dependencies"
   :url "https://github.com/kumarshantanu/lein-cascade"
   :license {:name "Eclipse Public License"

@@ -1,6 +1,10 @@
 # Changes and TODO
 
 
+## 0.1.2 / 2013-Oct-14
+
+* Fix error message on invalid cascade key
+
 ## 0.1.1 / 2013-Sep-18
 
 * Special treatment to symbols:
