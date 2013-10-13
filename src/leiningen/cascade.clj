@@ -78,8 +78,8 @@
             (mapcat cvals))
         (abort "Expected cascade vals to be a vector but found"
                (pr-str cvals))))
-    (abort "No such cascade key:" (pr-str ckey)
-           (str "in\n" (with-out-str (pp/pprint cmap))))))
+    (abort "No such cascade key:" (pr-str ckey) "- valid names are:"
+           (str/join ", " (sort (map pr-str (keys cmap)))))))
 
 
 (defn cascade
